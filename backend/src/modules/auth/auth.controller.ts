@@ -502,7 +502,13 @@ export const changePassword = async (req: Request, res: Response) => {
     }
 
     // Verify old password
-    const isOldPasswordValid = await bcrypt.compare(oldPassword, user.passwordHash);
+    // Check if passwordHash is defined before comparing
+    if (!user.passwordHash) {
+      return res.status(400).json({ message: 'User has no password set' });
+    }
+    
+    // Now TypeScript knows passwordHash is not undefined, so safe to use
+    const isOldPasswordValid = await bcrypt.compare(oldPassword, user.passwordHash!);
     if (!isOldPasswordValid) {
       return res.status(401).json({ message: 'Old password is incorrect' });
     }
