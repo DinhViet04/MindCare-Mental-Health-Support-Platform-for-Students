@@ -10,4 +10,7 @@ router.post('/login', authController.login);
 router.post('/google-login', authController.googleLogin); // Added Google login route
 router.post('/logout', authMiddleware, authController.logout);
 
+router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password', authController.resetPassword);
+
 export default router;

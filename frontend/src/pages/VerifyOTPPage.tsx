@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { authService } from '../modules/auth/services/auth.service';
 
 const VerifyOTPPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const email = location.state?.email || '';
+  const [searchParams] = useSearchParams();
+  const emailFromUrl = searchParams.get('email') || '';
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
@@ -24,10 +24,10 @@ const VerifyOTPPage = () => {
 
   // Redirect nếu không có email
   useEffect(() => {
-    if (!email) {
-      navigate('/register');
+    if (!emailFromUrl) {
+      navigate('/forgot-password');
     }
-  }, [email, navigate]);
+  }, [emailFromUrl, navigate]);
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return; // Chỉ cho phép số
@@ -75,8 +75,11 @@ const VerifyOTPPage = () => {
     setError('');
 
     try {
-      await authService.verifyOTP({ email, otpCode });
-      navigate('/login', { state: { verified: true } });
+      // Gọi API xác minh OTP bằng cách gọi API reset password với mật khẩu tạm thời
+      // để kiểm tra xem OTP có hợp lệ hay không
+      // Tuy nhiên, vì đây là quy trình quên mật khẩu nên chúng ta sẽ chuyển sang trang đặt lại mật khẩu
+      // mà không thực sự đặt lại mật khẩu
+      navigate('/reset-password', { state: { email: emailFromUrl, otpCode } });
     } catch (err: any) {
       setError(err.response?.data?.message || 'Mã OTP không hợp lệ');
     } finally {
@@ -89,7 +92,7 @@ const VerifyOTPPage = () => {
 
     setResendLoading(true);
     try {
-      await authService.resendOTP(email);
+      await authService.forgotPassword(emailFromUrl);
       setCountdown(60);
       setOtp(['', '', '', '', '', '']);
       setError('');
@@ -108,10 +111,10 @@ const VerifyOTPPage = () => {
           <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center shadow-lg mb-4">
             <span className="text-white font-bold text-3xl">M</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">Xác thực Email</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Xác thực OTP</h1>
           <p className="text-gray-500 mt-2">
             Chúng tôi đã gửi mã OTP đến<br />
-            <span className="font-medium text-gray-700">{email}</span>
+            <span className="font-medium text-gray-700">{emailFromUrl}</span>
           </p>
         </div>
 
@@ -145,7 +148,7 @@ const VerifyOTPPage = () => {
             disabled={loading}
             className="w-full py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
           >
-            {loading ? 'Đang xác thực...' : 'Xác thực'}
+            {loading ? 'Đang xác thực...' : 'Xác thực OTP'}
           </button>
         </form>
 
@@ -167,13 +170,13 @@ const VerifyOTPPage = () => {
           </p>
         </div>
 
-        {/* Back to Register */}
+        {/* Back to Forgot Password */}
         <p className="mt-4 text-center text-sm text-gray-600">
           <button
-            onClick={() => navigate('/register')}
+            onClick={() => navigate('/forgot-password')}
             className="text-teal-600 font-medium hover:text-teal-700"
           >
-            ← Quay lại đăng ký
+            ← Quay lại quên mật khẩu
           </button>
         </p>
       </div>
