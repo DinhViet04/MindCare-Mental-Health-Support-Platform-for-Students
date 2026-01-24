@@ -6,6 +6,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
 import DashboardPage from './pages/DashboardPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AuthRoute from './routes/AuthRoute';
 
@@ -39,6 +41,22 @@ function App() {
               element={
                 <AuthRoute>
                   <VerifyOTPPage />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/forgot-password"
+              element={
+                <AuthRoute>
+                  <ForgotPasswordPage />
+                </AuthRoute>
+              }
+            />
+            <Route
+              path="/reset-password"
+              element={
+                <AuthRoute>
+                  <ResetPasswordPage />
                 </AuthRoute>
               }
             />
