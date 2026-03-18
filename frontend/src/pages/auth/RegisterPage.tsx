@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff } from 'react-icons/fi';
+import Navbar from '../../components/Layout/Navbar';
 
 interface RegisterForm {
     fullName: string;
@@ -44,26 +45,7 @@ const RegisterPage: React.FC = () => {
             <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
                 <div className="layout-container flex h-full grow flex-col">
 
-                    {/* Header */}
-                    <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-                        <div className="flex items-center gap-3 text-slate-900 dark:text-slate-100">
-                            <div className="size-6 text-primary">
-                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor" />
-                                </svg>
-                            </div>
-                            <h2 className="text-xl font-bold leading-tight tracking-tight">MindCare</h2>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm hidden sm:inline-block text-slate-600 dark:text-slate-400">Đã có tài khoản?</span>
-                            <Link
-                                to="/login"
-                                className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-slate-900 text-sm font-bold leading-normal"
-                            >
-                                Đăng nhập
-                            </Link>
-                        </div>
-                    </header>
+<Navbar />
 
                     {/* Main Content Area: Split Layout */}
                     <main className="flex-1 flex flex-col lg:flex-row items-stretch overflow-hidden">

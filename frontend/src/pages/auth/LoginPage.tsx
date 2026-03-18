@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import Navbar from '../../components/Layout/Navbar';
 
 interface LoginForm {
     email: string;
@@ -34,23 +35,10 @@ const LoginPage: React.FC = () => {
         <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center">
             <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
                 <div className="layout-container flex h-full grow flex-col">
-                    {/* Header */}
-                    <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-                        <div className="flex items-center gap-3 text-slate-900 dark:text-slate-100">
-                            <div className="size-6 text-primary">
-                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
-                                </svg>
-                            </div>
-                            <h2 className="text-xl font-bold leading-tight tracking-tight">MindCare</h2>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm hidden sm:inline-block text-slate-600 dark:text-slate-400">Don't have an account?</span>
-                            <Link to="/register" className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-slate-900 text-sm font-bold leading-normal">
-                                Sign Up
-                            </Link>
-                        </div>
-                    </header>
+
+                    {/* Navbar dùng chung — thay thế header cũ */}
+                    <Navbar />
+
                     {/* Main Content Area: Split Layout */}
                     <main className="flex-1 flex flex-col lg:flex-row items-stretch overflow-hidden">
                         {/* Left Side: Visual/Illustration (Hidden on mobile) */}
@@ -61,8 +49,10 @@ const LoginPage: React.FC = () => {
                             </div>
                             <div className="relative z-10 max-w-md text-center">
                                 <div className="mb-8 flex justify-center">
-                                    <div className="w-full aspect-square rounded-xl bg-cover bg-center shadow-2xl shadow-primary/20" data-alt="Calming image of student practicing mindfulness in a serene park" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3izyIiHln0SMWFc_8o6rDq3DdVmxdkeS1cYT7BUFw_tR7i8coliGNvlp3ftjD6g8Y_HVv7qK-aS3jvOzyg_Ub2XuT3viUr4Dk9P8AFRe1yffmdRkB8K8M-dHWqGZgwvizWd8X24CRE6OmTzihNITE0hBPPOCy3_4ENsWl7yI0TNQogfoSjzmA6pqFG1v7Liib116IrDzeD0Ey9LbRt3_5rWYphlzomEniZaW6S703ca7egyCE7tAOfSmtVeUl-oocT35tc-6Aj4bw')" }}>
-                                    </div>
+                                    <div
+                                        className="w-full aspect-square rounded-xl bg-cover bg-center shadow-2xl shadow-primary/20"
+                                        style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3izyIiHln0SMWFc_8o6rDq3DdVmxdkeS1cYT7BUFw_tR7i8coliGNvlp3ftjD6g8Y_HVv7qK-aS3jvOzyg_Ub2XuT3viUr4Dk9P8AFRe1yffmdRkB8K8M-dHWqGZgwvizWd8X24CRE6OmTzihNITE0hBPPOCy3_4ENsWl7yI0TNQogfoSjzmA6pqFG1v7Liib116IrDzeD0Ey9LbRt3_5rWYphlzomEniZaW6S703ca7egyCE7tAOfSmtVeUl-oocT35tc-6Aj4bw')" }}
+                                    />
                                 </div>
                                 <h2 className="text-3xl font-bold mb-4">You're not alone.</h2>
                                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
@@ -70,6 +60,7 @@ const LoginPage: React.FC = () => {
                                 </p>
                             </div>
                         </div>
+
                         {/* Right Side: Login Form */}
                         <div className="flex-1 flex flex-col justify-center px-6 py-12 lg:px-24 bg-background-light dark:bg-background-dark">
                             <div className="max-w-[440px] w-full mx-auto">
@@ -77,6 +68,7 @@ const LoginPage: React.FC = () => {
                                     <h1 className="text-3xl font-bold mb-2">MindCare Login</h1>
                                     <p className="text-slate-500 dark:text-slate-400">Welcome back! Please enter your details.</p>
                                 </div>
+
                                 {/* Login Form */}
                                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
                                     <div>
@@ -101,6 +93,7 @@ const LoginPage: React.FC = () => {
                                             <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
                                         )}
                                     </div>
+
                                     <div>
                                         <div className="flex justify-between items-center mb-2">
                                             <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label>
@@ -133,6 +126,7 @@ const LoginPage: React.FC = () => {
                                             <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
                                         )}
                                     </div>
+
                                     <button
                                         type="submit"
                                         disabled={isLoading}
@@ -141,6 +135,7 @@ const LoginPage: React.FC = () => {
                                         {isLoading ? 'Đang xử lý...' : 'Log In'}
                                     </button>
                                 </form>
+
                                 {/* Divider */}
                                 <div className="relative my-10">
                                     <div className="absolute inset-0 flex items-center">
@@ -150,6 +145,7 @@ const LoginPage: React.FC = () => {
                                         <span className="bg-background-light dark:bg-background-dark px-4 text-slate-500 font-medium tracking-wider">Or continue with</span>
                                     </div>
                                 </div>
+
                                 {/* Social Login */}
                                 <div className="grid grid-cols-1 gap-4">
                                     <button
@@ -158,14 +154,15 @@ const LoginPage: React.FC = () => {
                                         onClick={() => window.location.href = `${API_URL}/auth/google`}
                                     >
                                         <svg className="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
-                                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
                                         </svg>
                                         <span className="font-semibold text-slate-700 dark:text-slate-300">Sign in with Google</span>
                                     </button>
                                 </div>
+
                                 {/* Footer Links */}
                                 <div className="mt-12 text-center text-sm text-slate-500 dark:text-slate-400">
                                     <p>© 2024 MindCare. Your privacy is our priority.</p>

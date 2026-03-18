@@ -103,6 +103,8 @@ import AnonymousSharingPage from './pages/community/AnonymousSharingPage';
 import EventsPage from './pages/community/EventsPage';
 import EventDetailPage from './pages/community/EventDetailPage';
 import WorkshopsPage from './pages/community/WorkshopsPage';
+import MyStoriesPage from './pages/community/MyStoriesPage';
+
 
 // ==================== ADMIN PAGES ====================
 import AdminDashboardPage from './pages/admin/DashboardPage';
@@ -350,6 +352,7 @@ function AppContent() {
                             <Route path="/community/events" element={<EventsPage />} />
                             <Route path="/community/events/:id" element={<EventDetailPage />} />
                             <Route path="/community/workshops" element={<WorkshopsPage />} />
+                            <Route path="/community/my-stories" element={<MyStoriesPage />} />
                             <Route path="/community/share" element={<ProtectedRoute><AnonymousSharingPage /></ProtectedRoute>} />
                             <Route path="/community/my-groups" element={<ProtectedRoute><MyGroupsPage /></ProtectedRoute>} />
 
